@@ -8,6 +8,9 @@ namespace QuizzerAPI.DTO
     public class Quiz
     {
         [DataMember]
+        public int idQuiz { get; set; }
+
+        [DataMember]
         public string titre { get; set; }
 
         [DataMember]
