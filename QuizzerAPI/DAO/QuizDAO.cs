@@ -22,15 +22,15 @@ public Dictionary<String, String> reponses { get; set; }
 */
 namespace QuizzerAPI.DAO
 {
-    public class QuizDAO
+    public static class QuizDAO
     {
-        public List<Quiz> GetAll()
+        public static List<Quiz> GetAll()
         {
             List<Quiz> resultats = new List<Quiz>();
             Quiz quiz;
 
             DbConnection cnx = new MySqlConnection();
-            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=;";
+            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=quizzer;";
 
             cnx.Open();
 
@@ -48,29 +48,34 @@ namespace QuizzerAPI.DAO
                 quiz.idQuiz = (int)dr["idQuiz"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
-                /*quiz.choix = dr["question"] as List<string>;
-                quiz.reponses = dr["choix"] as Dictionary<string>;*/
+                quiz.choix = (string)dr["choix"];
+                quiz.reponses = (string)dr["reponses"];
 
                 resultats.Add(quiz);
             }
             cnx.Close();
-            return null;
+            return resultats;
         }
 
-        public List<Quiz> GetByID(int id)
+        public static List<Quiz> GetByID(string id)
         {
+            
             List<Quiz> resultats = new List<Quiz>();
             Quiz quiz;
 
             DbConnection cnx = new MySqlConnection();
-            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=;";
+            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=quizzer;";
 
             cnx.Open();
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "SELECT * FROM quiz WHERE idQuiz=" + id;
-            cmd.CommandType = CommandType.TableDirect;
+            cmd.CommandText = "SELECT * FROM quiz WHERE idQuiz=@Id";
+            cmd.CommandType = CommandType.Text;
+
+            MySqlParameter idQuiz = new MySqlParameter("@Id", MySqlDbType.Int32);
+            idQuiz.Value = Int32.Parse(id);
+            cmd.Parameters.Add(idQuiz);
 
             DbDataReader dr = cmd.ExecuteReader();
 
@@ -81,101 +86,102 @@ namespace QuizzerAPI.DAO
                 quiz.idQuiz = (int)dr["idQuiz"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
-                /*quiz.choix = dr["question"] as List<string>;
-                quiz.reponses = dr["choix"] as Dictionary<string>;*/
+                quiz.choix = (string)dr["choix"];
+                quiz.reponses = (string)dr["reponses"];
 
                 resultats.Add(quiz);
             }
             cnx.Close();
-            return null;
+            return resultats;
         }
 
-        public void AjouterQuiz(Quiz quiz)
+        public static void AjouterQuiz(Quiz quiz)
         {
 
             DbConnection cnx = new MySqlConnection();
 
-            cnx.ConnectionString = "server=localhost; port=3306;user=root;database=journaliste;";
+            cnx.ConnectionString = "server=localhost; port=3306;user=root;database=quizzer;";
 
             cnx.Open();
 
-            DbCommand cmd = new MySqlCommand(); //Ou : MySqlCommand cmd = cnx.CreateCommand();
+            DbCommand cmd = new MySqlCommand(); 
             cmd.Connection = cnx;
             cmd.CommandText = "INSERT INTO quiz (titre,question,choix,reponses) VALUES (@Titre,@Question,@Choix,@Reponses);";
-
-            MySqlParameter titre = new MySqlParameter("@Titre", MySqlDbType.VarChar);
-            MySqlParameter question = new MySqlParameter("@Question", MySqlDbType.VarChar);
-            /*MySqlParameter choix = new MySqlParameter("@Choix", MySqlDbType.List);
-            MySqlParameter reponses = new MySqlParameter("@Reponses", MySqlDbType.Int32);*/
-
-
-            titre.Value = quiz.titre;
-            question.Value = quiz.question;
-            /*choix.Value = quiz.choix;
-            reponses.Value = quiz.reponses;*/
-
-            cmd.Parameters.Add(titre);
-            cmd.Parameters.Add(question);
-            /*cmd.Parameters.Add(choix);
-            cmd.Parameters.Add(reponses);*/
-
-
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
-        }
-
-        public void UpdateQuiz(Quiz quiz)
-        {
-
-            DbConnection cnx = new MySqlConnection();
-            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=;";
-
-            cnx.Open();
-
-            DbCommand cmd = new MySqlCommand();
-            cmd.Connection = cnx;
-            cmd.CommandText = "UPDATE quiz SET titre= @Titre, question= @Question, choix= @Choix, reponses= @Reponses WHERE id = @Id";
             cmd.CommandType = CommandType.Text;
 
             MySqlParameter titre = new MySqlParameter("@Titre", MySqlDbType.VarChar);
             MySqlParameter question = new MySqlParameter("@Question", MySqlDbType.VarChar);
-            /*MySqlParameter choix = new MySqlParameter("@Choix", MySqlDbType.List);
-            MySqlParameter reponses = new MySqlParameter("@Reponses", MySqlDbType.Int32);*/
+            MySqlParameter choix = new MySqlParameter("@Choix", MySqlDbType.VarChar);
+            MySqlParameter reponses = new MySqlParameter("@Reponses", MySqlDbType.VarChar);
 
 
             titre.Value = quiz.titre;
             question.Value = quiz.question;
-            /*choix.Value = quiz.choix;
-            reponses.Value = quiz.reponses;*/
+            choix.Value = quiz.choix;
+            reponses.Value = quiz.reponses;
 
             cmd.Parameters.Add(titre);
             cmd.Parameters.Add(question);
-            /*cmd.Parameters.Add(choix);
-            cmd.Parameters.Add(reponses);*/
+            cmd.Parameters.Add(choix);
+            cmd.Parameters.Add(reponses);
 
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
 
-        public void DeleteQuiz(int id)
+        public static void UpdateQuiz(Quiz quiz)
         {
             DbConnection cnx = new MySqlConnection();
-            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=;";
+            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=quizzer;";
 
             cnx.Open();
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "DELETE FROM quiz WHERER id =  @Id";
+            cmd.CommandText = "UPDATE quiz SET titre= @Titre, question= @Question, choix= @Choix, reponses= @Reponses WHERE idQuiz = @Id";
+            cmd.CommandType = CommandType.Text;
+
+            MySqlParameter id = new MySqlParameter("@Id", MySqlDbType.Int32);
+            MySqlParameter titre = new MySqlParameter("@Titre", MySqlDbType.VarChar);
+            MySqlParameter question = new MySqlParameter("@Question", MySqlDbType.VarChar);
+            MySqlParameter choix = new MySqlParameter("@Choix", MySqlDbType.VarChar);
+            MySqlParameter reponses = new MySqlParameter("@Reponses", MySqlDbType.VarChar);
+
+
+            id.Value = quiz.idQuiz;
+            titre.Value = quiz.titre;
+            question.Value = quiz.question;
+            choix.Value = quiz.choix;
+            reponses.Value = quiz.reponses;
+
+            cmd.Parameters.Add(id);
+            cmd.Parameters.Add(titre);
+            cmd.Parameters.Add(question);
+            cmd.Parameters.Add(choix);
+            cmd.Parameters.Add(reponses);
+
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void DeleteQuiz(string id)
+        {
+            DbConnection cnx = new MySqlConnection();
+            cnx.ConnectionString = "server=localhost;port=3306;user=root;database=quizzer;";
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = "DELETE FROM quiz WHERE idQuiz=@Id";
             cmd.CommandType = CommandType.Text;
 
             MySqlParameter idQuiz = new MySqlParameter("@Id", MySqlDbType.Int32);
+            idQuiz.Value = Int32.Parse(id);
+            cmd.Parameters.Add(idQuiz);
 
-
-            idQuiz.Value = id;
-
-            cmd.Parameters.Add(id);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();

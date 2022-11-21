@@ -17,10 +17,10 @@ namespace QuizzerAPI.DTO
         public string question { get; set; }
 
         [DataMember]
-        public List<String> choix { get; set; }
+        public string choix { get; set; }
 
         [DataMember]
-        public Dictionary<String, String> reponses { get; set; }
+        public string reponses { get; set; }
 
     }
 }

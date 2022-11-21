@@ -12,39 +12,44 @@ namespace QuizzerAPI
     [ServiceContract]
     public interface IService1
     {
+        //Get All
         [OperationContract]
         [WebInvoke(Method = "GET",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
-                UriTemplate = "Quiz/")]
+                UriTemplate = "Quiz")]
         IEnumerable<Quiz> GetAll();
 
+        //Get By ID
         [OperationContract]
         [WebInvoke(Method = "GET",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "Quiz/{id}")]
-        IEnumerable<Quiz> GetGetByID();
+        IEnumerable<Quiz> GetGetByID(string id);
 
+        //Insert
         [OperationContract]
         [WebInvoke(Method = "POST",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
-                UriTemplate = "AddQuiz/{quiz}")]
+                UriTemplate = "AddQuiz")]
         void AjouterQuiz(Quiz quiz);
 
+        //Update
         [OperationContract]
         [WebInvoke(Method = "PUT",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
-                UriTemplate = "UpdateQuiz/{quiz}")]
+                UriTemplate = "UpdateQuiz")]
         void UpdateQuiz(Quiz quiz);
 
+        //Delete
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "DELETE",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "DeleteQuiz/{id}")]
-        bool DeleteQuiz(int id);
+        void DeleteQuiz(string id);
     }
 }

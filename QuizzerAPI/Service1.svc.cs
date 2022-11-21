@@ -1,4 +1,5 @@
-﻿using QuizzerAPI.DTO;
+﻿using QuizzerAPI.DAO;
+using QuizzerAPI.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,26 @@ namespace QuizzerAPI
     {
         public IEnumerable<Quiz> GetAll()
         {
-            throw new NotImplementedException();
+            return QuizDAO.GetAll();
+        }
+
+        public IEnumerable<Quiz> GetGetByID(string id)
+        {
+            return QuizDAO.GetByID(id);
+        }
+        public void AjouterQuiz(Quiz quiz)
+        {
+            QuizDAO.AjouterQuiz(quiz);
+        }
+
+        public void UpdateQuiz(Quiz quiz)
+        {
+            QuizDAO.UpdateQuiz(quiz);
+        }
+
+        public void DeleteQuiz(string id)
+        {
+            QuizDAO.DeleteQuiz(id);
         }
     }
 }
