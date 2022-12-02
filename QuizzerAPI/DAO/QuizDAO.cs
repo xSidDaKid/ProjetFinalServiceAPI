@@ -46,6 +46,7 @@ namespace QuizzerAPI.DAO
                 quiz = new Quiz();
 
                 quiz.idQuiz = (int)dr["idQuiz"];
+                quiz.idCreateurQuiz = (int)dr["idCreateurQuiz"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
                 quiz.choix = (string)dr["choix"];
@@ -84,6 +85,7 @@ namespace QuizzerAPI.DAO
                 quiz = new Quiz();
 
                 quiz.idQuiz = (int)dr["idQuiz"];
+                quiz.idCreateurQuiz = (int)dr["idCreateurQuiz"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
                 quiz.choix = (string)dr["choix"];
@@ -106,9 +108,10 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand(); 
             cmd.Connection = cnx;
-            cmd.CommandText = "INSERT INTO quiz (titre,question,choix,reponses) VALUES (@Titre,@Question,@Choix,@Reponses);";
+            cmd.CommandText = "INSERT INTO quiz (idCreateurQuiz,titre,question,choix,reponses) VALUES (@IdCreateurQuiz,@Titre,@Question,@Choix,@Reponses);";
             cmd.CommandType = CommandType.Text;
 
+            MySqlParameter idCreateurQuiz = new MySqlParameter("@IdCreateurQuiz", MySqlDbType.Int32);
             MySqlParameter titre = new MySqlParameter("@Titre", MySqlDbType.VarChar);
             MySqlParameter question = new MySqlParameter("@Question", MySqlDbType.VarChar);
             MySqlParameter choix = new MySqlParameter("@Choix", MySqlDbType.VarChar);
@@ -139,9 +142,10 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "UPDATE quiz SET titre= @Titre, question= @Question, choix= @Choix, reponses= @Reponses WHERE idQuiz = @Id";
+            cmd.CommandText = "UPDATE quiz SET idCreateurQuiz=@IdCreateurQuiz,titre= @Titre, question= @Question, choix= @Choix, reponses= @Reponses WHERE idQuiz = @Id";
             cmd.CommandType = CommandType.Text;
 
+            MySqlParameter idCreateurQuiz = new MySqlParameter("@IdCreateurQuiz", MySqlDbType.Int32);
             MySqlParameter id = new MySqlParameter("@Id", MySqlDbType.Int32);
             MySqlParameter titre = new MySqlParameter("@Titre", MySqlDbType.VarChar);
             MySqlParameter question = new MySqlParameter("@Question", MySqlDbType.VarChar);
@@ -150,12 +154,14 @@ namespace QuizzerAPI.DAO
 
 
             id.Value = quiz.idQuiz;
+            idCreateurQuiz.Value = quiz.idCreateurQuiz;
             titre.Value = quiz.titre;
             question.Value = quiz.question;
             choix.Value = quiz.choix;
             reponses.Value = quiz.reponses;
 
             cmd.Parameters.Add(id);
+            cmd.Parameters.Add(idCreateurQuiz);
             cmd.Parameters.Add(titre);
             cmd.Parameters.Add(question);
             cmd.Parameters.Add(choix);

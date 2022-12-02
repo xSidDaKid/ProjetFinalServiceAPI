@@ -6,6 +6,9 @@ namespace QuizzerAPI.DTO
     public class Utilisateur
     {
         [DataMember]
+        public int idUtilisateur { get; set; }
+
+        [DataMember]
         public string courriel { get; set; }
 
         [DataMember]
