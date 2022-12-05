@@ -11,7 +11,7 @@ namespace QuizzerAPI.DAO
 {
     public class UtilisateurDAO
     {
-        public static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
 
         public static List<Utilisateur> GetAll()
         {
@@ -57,12 +57,8 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "SELECT * FROM utilisateur WHERE idUtilisateur=@Id";
+            cmd.CommandText = $"SELECT * FROM utilisateur WHERE idUtilisateur={id}";
             cmd.CommandType = CommandType.Text;
-
-            MySqlParameter idQuiz = new MySqlParameter("@Id", MySqlDbType.Int32);
-            idQuiz.Value = Int32.Parse(id);
-            cmd.Parameters.Add(idQuiz);
 
             DbDataReader dr = cmd.ExecuteReader();
 
@@ -91,31 +87,16 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "INSERT INTO utilisateur (idUtilisateur,courriel,nomUtilisateur,motDePasse) VALUES (@IdUtilisateur,@Courriel,@nomUtilisateur,@motDePasse);";
+            cmd.CommandText = $"INSERT INTO utilisateur (idUtilisateur,courriel,nomUtilisateur,motDePasse) VALUES ({user.idUtilisateur},'{user.courriel}','{user.nomUtilisateur}','{user.motDePasse}');";
             cmd.CommandType = CommandType.Text;
-
-            MySqlParameter idUtilisateur = new MySqlParameter("@IdUtilisateur", MySqlDbType.Int32);
-            MySqlParameter courriel = new MySqlParameter("@Courriel", MySqlDbType.VarChar);
-            MySqlParameter nomUtilisateur = new MySqlParameter("@NomUtilisateur", MySqlDbType.VarChar);
-            MySqlParameter motDePasse = new MySqlParameter("@motDePasse", MySqlDbType.VarChar);
-
-
-            idUtilisateur.Value = user.idUtilisateur;
-            courriel.Value = user.courriel;
-            nomUtilisateur.Value = user.nomUtilisateur;
-            motDePasse.Value = user.motDePasse;
-
-            cmd.Parameters.Add(idUtilisateur);
-            cmd.Parameters.Add(courriel);
-            cmd.Parameters.Add(nomUtilisateur);
-            cmd.Parameters.Add(motDePasse);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
+            cnx.Close();
         }
 
 
-        public static void UpdateUtilisateur(Utilisateur user)
+        public static bool UpdateUtilisateur(Utilisateur user)
         {
             DbConnection cnx = new MySqlConnection();
             cnx.ConnectionString = connexion;
@@ -124,33 +105,16 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "UPDATE utilisateur SET courriel=@Courriel,nomUtilisateur=@NomUtilisateur, motDePasse= @MotDePasse WHERE idUtilisateur = @IdUtilisateur";
+            cmd.CommandText = $"UPDATE utilisateur SET courriel='{user.courriel}',nomUtilisateur='{user.nomUtilisateur}', motDePasse='{user.motDePasse}' WHERE idUtilisateur = {user.idUtilisateur}";
             cmd.CommandType = CommandType.Text;
 
-
-            MySqlParameter idUtilisateur = new MySqlParameter("@IdUtilisateur", MySqlDbType.Int32);
-            MySqlParameter courriel = new MySqlParameter("@Courriel", MySqlDbType.VarChar);
-            MySqlParameter nomUtilisateur = new MySqlParameter("@NomUtilisateur", MySqlDbType.VarChar);
-            MySqlParameter motDePasse = new MySqlParameter("@motDePasse", MySqlDbType.VarChar);
-
-
-            idUtilisateur.Value = user.idUtilisateur;
-            courriel.Value = user.courriel;
-            nomUtilisateur.Value = user.nomUtilisateur;
-            motDePasse.Value = user.motDePasse;
-
-
-            cmd.Parameters.Add(idUtilisateur);
-            cmd.Parameters.Add(courriel);
-            cmd.Parameters.Add(nomUtilisateur);
-            cmd.Parameters.Add(motDePasse);
-
-
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+            return res;
         }
 
-        public static void DeleteUtilisateur(string id)
+        public static bool DeleteUtilisateur(string id)
         {
             DbConnection cnx = new MySqlConnection();
             cnx.ConnectionString = connexion;
@@ -159,17 +123,13 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "DELETE FROM utilisateur WHERE idUtilisateur=@Id";
+            cmd.CommandText = $"DELETE FROM utilisateur WHERE idUtilisateur={id}";
             cmd.CommandType = CommandType.Text;
 
-            MySqlParameter idUtilisateur = new MySqlParameter("@Id", MySqlDbType.Int32);
-            idUtilisateur.Value = Int32.Parse(id);
-            cmd.Parameters.Add(idUtilisateur);
-
-
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
-
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+            return res;
         }
 
     }
