@@ -12,7 +12,7 @@ namespace QuizzerAPI
 {
     public class Service1 : IService1
     {
-        public IEnumerable<Quiz> GetAll()
+        public IEnumerable<Quiz> GetAllQuiz()
         {
             return QuizDAO.GetAll();
         }
@@ -34,6 +34,61 @@ namespace QuizzerAPI
         public void DeleteQuiz(string id)
         {
             QuizDAO.DeleteQuiz(id);
+        }
+
+        public IEnumerable<Utilisateur> GetAllUtilisateur()
+        {
+            return UtilisateurDAO.GetAll();
+        }
+
+        public IEnumerable<Utilisateur> GetUtilisateurById(string id)
+        {
+            return UtilisateurDAO.GetByID(id);
+        }
+
+        public void AjouterUtilisateur(Utilisateur user)
+        {
+            UtilisateurDAO.AjouterUtilisateur(user);
+        }
+
+        public void UpdateUtilisateur(Utilisateur user)
+        {
+            UtilisateurDAO.UpdateUtilisateur(user);
+        }
+
+        public void DeleteUtilisateur(string id)
+        {
+            UtilisateurDAO.DeleteUtilisateur(id);
+        }
+
+        public IEnumerable<Permission> GetAllPermission()
+        {
+            return PermissionDAO.GetAll();
+        }
+
+        public IEnumerable<Permission> GetPermissionByIdQuiz(string id)
+        {
+            return PermissionDAO.GetByIDQuiz(id);
+        }
+
+        public IEnumerable<Permission> GetPermissionByIdUtilisateur(string id)
+        {
+            return PermissionDAO.GetByIDUtilisateur(id);
+        }
+
+        public void AjouterPermission(Permission permission)
+        {
+            PermissionDAO.AjouterPermission(permission);
+        }
+
+        public void UpdatePermission(Permission permission)
+        {
+            PermissionDAO.UpdatePermission(permission);
+        }
+
+        public void DeletePermission(Permission permission)
+        {
+            PermissionDAO.DeletePermission(permission);
         }
     }
 }

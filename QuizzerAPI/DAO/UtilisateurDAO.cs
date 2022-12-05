@@ -124,7 +124,7 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "UPDATE utilisateur SET courriel=@Courriel,nomUtilisateur=@NomUtilisateur, motDePasse= @MotDePasse WHERE idUtilisateur = @Id";
+            cmd.CommandText = "UPDATE utilisateur SET courriel=@Courriel,nomUtilisateur=@NomUtilisateur, motDePasse= @MotDePasse WHERE idUtilisateur = @IdUtilisateur";
             cmd.CommandType = CommandType.Text;
 
 
