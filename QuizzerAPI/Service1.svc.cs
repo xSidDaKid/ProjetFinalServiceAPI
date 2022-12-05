@@ -51,14 +51,14 @@ namespace QuizzerAPI
             UtilisateurDAO.AjouterUtilisateur(user);
         }
 
-        public void UpdateUtilisateur(Utilisateur user)
+        public bool UpdateUtilisateur(Utilisateur user)
         {
-            UtilisateurDAO.UpdateUtilisateur(user);
+            return UtilisateurDAO.UpdateUtilisateur(user);
         }
 
-        public void DeleteUtilisateur(string id)
+        public bool DeleteUtilisateur(string id)
         {
-            UtilisateurDAO.DeleteUtilisateur(id);
+            return UtilisateurDAO.DeleteUtilisateur(id);
         }
 
         public IEnumerable<Permission> GetAllPermission()

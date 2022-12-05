@@ -85,7 +85,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdateUtilisateur")]
-        void UpdateUtilisateur(Utilisateur user);
+        bool UpdateUtilisateur(Utilisateur user);
 
             //Delete
         [OperationContract]
@@ -93,7 +93,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "DeleteUtilisateur/{id}")]
-        void DeleteUtilisateur(string id);
+        bool DeleteUtilisateur(string id);
 
         //Permission----------
         //Get All

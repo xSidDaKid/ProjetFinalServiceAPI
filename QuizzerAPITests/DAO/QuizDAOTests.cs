@@ -54,13 +54,6 @@ namespace QuizzerAPI.DAO.Tests
         [Ignore]
         public void DeleteQuizTest()
         {
-            Quiz quiz = new Quiz();
-            quiz.titre = "TitreNEW";
-            quiz.question = "Question";
-            quiz.choix = "c1,c2,c3,c4";
-            quiz.reponses = "c1:r1,c2:r2,c3:r3,c4:r4";
-            quiz.idCreateurQuiz = 1;
-            quiz.idQuiz = 1;
             bool res = QuizDAO.DeleteQuiz("1");
             Assert.IsTrue(res);
         }
