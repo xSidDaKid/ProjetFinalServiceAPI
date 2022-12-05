@@ -32,7 +32,7 @@ namespace QuizzerAPI.DAO
                 quiz = new Quiz();
 
                 quiz.idQuiz = (int)dr["idQuiz"];
-                quiz.idCreateurQuiz = (int)dr["idCreateurQuiz"];
+                quiz.idCreateurQuiz = (int)dr["idUser"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
                 quiz.choix = (string)dr["choix"];
@@ -67,7 +67,7 @@ namespace QuizzerAPI.DAO
                 quiz = new Quiz();
 
                 quiz.idQuiz = (int)dr["idQuiz"];
-                quiz.idCreateurQuiz = (int)dr["idCreateurQuiz"];
+                quiz.idCreateurQuiz = (int)dr["idUser"];
                 quiz.titre = (string)dr["titre"];
                 quiz.question = (string)dr["question"];
                 quiz.choix = (string)dr["choix"];
@@ -90,7 +90,7 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = $"INSERT INTO quiz (idCreateurQuiz,titre,question,choix,reponses) VALUES ({quiz.idCreateurQuiz},'{quiz.titre}','{quiz.question}','{quiz.choix}','{quiz.reponses}');";
+            cmd.CommandText = $"INSERT INTO quiz (idUser,titre,question,choix,reponses) VALUES ({quiz.idCreateurQuiz},'{quiz.titre}','{quiz.question}','{quiz.choix}','{quiz.reponses}');";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();
@@ -107,7 +107,7 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = $"UPDATE quiz SET idCreateurQuiz={quiz.idCreateurQuiz},titre= '{quiz.titre}', question= '{quiz.question}', choix= '{quiz.choix}', reponses= '{quiz.reponses}' WHERE idQuiz = {quiz.idQuiz}";
+            cmd.CommandText = $"UPDATE quiz SET idUser={quiz.idCreateurQuiz},titre= '{quiz.titre}', question= '{quiz.question}', choix= '{quiz.choix}', reponses= '{quiz.reponses}' WHERE idQuiz = {quiz.idQuiz}";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();
