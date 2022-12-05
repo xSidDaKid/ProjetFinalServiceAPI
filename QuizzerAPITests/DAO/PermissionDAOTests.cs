@@ -16,7 +16,7 @@ namespace QuizzerAPI.DAO.Tests
         public void GetAllTest()
         {
             Console.WriteLine("GET ALL");
-            Assert.AreEqual(1, PermissionDAO.GetAll().Count());
+            Assert.AreEqual(2, PermissionDAO.GetAll().Count());
         }
 
         [TestMethod()]
@@ -35,9 +35,11 @@ namespace QuizzerAPI.DAO.Tests
         public void AjouterPermissionTest()
         {
             Permission permission = new Permission();
-            permission.score = 1;
+            permission.score = 23;
             permission.idUtilisateur = 1;
             permission.idQuiz = 1;
+            PermissionDAO.AjouterPermission(permission);
+            List<Permission> list = PermissionDAO.GetAll();
             Assert.AreEqual(2, PermissionDAO.GetAll().Count());
         }
 
@@ -46,7 +48,7 @@ namespace QuizzerAPI.DAO.Tests
         {
             Permission permission = new Permission();
             permission.score = 100;
-            permission.idUtilisateur = 1;
+            permission.idUtilisateur = 2;
             permission.idQuiz = 1;
 
             bool res = PermissionDAO.UpdatePermission(permission);
@@ -54,15 +56,16 @@ namespace QuizzerAPI.DAO.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void DeletePermissionTest()
         {
             Permission permission = new Permission();
             permission.score = 100;
-            permission.idUtilisateur = 1;
+            permission.idUtilisateur = 2;
             permission.idQuiz = 1;
 
             bool res = PermissionDAO.DeletePermission(permission);
-            Assert.Fail();
+            Assert.IsTrue(res);
         }
     }
 }
