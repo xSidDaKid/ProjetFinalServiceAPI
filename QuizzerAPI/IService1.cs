@@ -42,7 +42,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdateQuiz")]
-        void UpdateQuiz(Quiz quiz);
+        bool UpdateQuiz(Quiz quiz);
 
         //Delete
         [OperationContract]
@@ -50,7 +50,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "DeleteQuiz/{id}")]
-        void DeleteQuiz(string id);
+        bool DeleteQuiz(string id);
 
 
         //Utilisateurs----------

@@ -26,14 +26,14 @@ namespace QuizzerAPI
             QuizDAO.AjouterQuiz(quiz);
         }
 
-        public void UpdateQuiz(Quiz quiz)
+        public bool UpdateQuiz(Quiz quiz)
         {
-            QuizDAO.UpdateQuiz(quiz);
+            return QuizDAO.UpdateQuiz(quiz);
         }
 
-        public void DeleteQuiz(string id)
+        public bool DeleteQuiz(string id)
         {
-            QuizDAO.DeleteQuiz(id);
+            return QuizDAO.DeleteQuiz(id);
         }
 
         public IEnumerable<Utilisateur> GetAllUtilisateur()
