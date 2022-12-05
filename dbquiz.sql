@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permission` (
-  `idQuiz` int(11) NOT NULL,
+  `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
   `idUtilisateur` int(11) NOT NULL,
   `score` int(11) DEFAULT NULL,
   PRIMARY KEY (`idQuiz`,`idUtilisateur`),
@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `quiz`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `quiz` (
-  `idQuiz` int(11) NOT NULL,
+  `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(45) DEFAULT NULL,
   `question` varchar(45) DEFAULT NULL,
   `choix` varchar(45) DEFAULT NULL,
@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `utilisateur` (
-  `idUtilisateur` int(11) NOT NULL,
+  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `courriel` varchar(45) DEFAULT NULL,
   `nomUtilisateur` varchar(45) DEFAULT NULL,
   `motDePasse` varchar(45) DEFAULT NULL,

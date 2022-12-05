@@ -109,16 +109,16 @@ namespace QuizzerAPI
         [WebInvoke(Method = "GET",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
-                UriTemplate = "Utilisateur/{idQuiz}")]
-        IEnumerable<Utilisateur> GetPermissionByIdQuiz(string id);
+                UriTemplate = "PermissionUtilisateurQuiz/{idQuiz}")]
+        IEnumerable<Permission> GetPermissionByIdQuiz(string idQuiz);
 
         //Get By IDUtilisateur
         [OperationContract]
         [WebInvoke(Method = "GET",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
-                UriTemplate = "Utilisateur/{idUtilisateur}")]
-        IEnumerable<Utilisateur> GetPermissionByIdUtilisateur(string id);
+                UriTemplate = "PermissionUtilisateur/{idUtilisateur}")]
+        IEnumerable<Permission> GetPermissionByIdUtilisateur(string idUtilisateur);
 
 
 
@@ -136,7 +136,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdatePermission")]
-        void UpdatePermission(Permission permission);
+        bool UpdatePermission(Permission permission);
 
         //Delete
         [OperationContract]
@@ -144,6 +144,6 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "DeleteUtilisateur")]
-        void DeletePermission(Permission permission);
+        bool DeletePermission(Permission permission);
     }
 }

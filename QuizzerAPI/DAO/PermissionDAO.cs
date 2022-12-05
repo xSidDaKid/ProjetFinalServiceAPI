@@ -6,13 +6,12 @@ using System.Web;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
 using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace QuizzerAPI.DAO
 {
     public class PermissionDAO
     {
-        public static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
 
         public static List<Permission> GetAll()
         {
@@ -26,7 +25,7 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "SELECT * FROM quiz";
+            cmd.CommandText = "SELECT * FROM permission";
             cmd.CommandType = CommandType.Text;
 
             DbDataReader dr = cmd.ExecuteReader();
@@ -34,11 +33,11 @@ namespace QuizzerAPI.DAO
             while (dr.Read())
             {
                 permission = new Permission();
-                permission.idQuiz= (int)dr["idQuiz"];
+                permission.idQuiz = (int)dr["idQuiz"];
                 permission.idUtilisateur = (int)dr["idUtilisateur"];
-                permission.score= (int)dr["score"];
+                permission.score = (int)dr["score"];
 
-                
+
                 resultats.Add(permission);
             }
             cnx.Close();
@@ -58,12 +57,8 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "SELECT * FROM permission WHERE idUtilisateur=@Id";
+            cmd.CommandText = $"SELECT * FROM permission WHERE idUtilisateur={id}";
             cmd.CommandType = CommandType.Text;
-
-            MySqlParameter idQuiz = new MySqlParameter("@Id", MySqlDbType.Int32);
-            idQuiz.Value = Int32.Parse(id);
-            cmd.Parameters.Add(idQuiz);
 
             DbDataReader dr = cmd.ExecuteReader();
 
@@ -94,12 +89,8 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "SELECT * FROM permission WHERE idQuiz=@Id";
+            cmd.CommandText = $"SELECT * FROM permission WHERE idQuiz={id}";
             cmd.CommandType = CommandType.Text;
-
-            MySqlParameter idQuiz = new MySqlParameter("@Id", MySqlDbType.Int32);
-            idQuiz.Value = Int32.Parse(id);
-            cmd.Parameters.Add(idQuiz);
 
             DbDataReader dr = cmd.ExecuteReader();
 
@@ -128,28 +119,15 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "INSERT INTO permission (idQuiz,idUtilisateur,score) VALUES (@IdQuiz,@IdUtilisateur,@Score);";
+            cmd.CommandText = $"INSERT INTO permission (idQuiz,idUtilisateur,score) VALUES ({permission.idQuiz},{permission.idUtilisateur},{permission.score});";
             cmd.CommandType = CommandType.Text;
-
-            MySqlParameter idQuiz = new MySqlParameter("@IdQuiz", MySqlDbType.Int32);
-            MySqlParameter idUtilisateur = new MySqlParameter("@IdUtilisateur", MySqlDbType.Int32);
-            MySqlParameter score = new MySqlParameter("@Score", MySqlDbType.Int32);
-
-
-            idQuiz.Value = permission.idQuiz;
-            idUtilisateur.Value = permission.idUtilisateur;
-            score.Value = permission.score;
-
-            cmd.Parameters.Add(idQuiz);
-            cmd.Parameters.Add(idUtilisateur);
-            cmd.Parameters.Add(score);
-
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
+            cnx.Close();
         }
 
-        public static void UpdatePermission(Permission permission)
+        public static bool UpdatePermission(Permission permission)
         {
             DbConnection cnx = new MySqlConnection();
             cnx.ConnectionString = connexion;
@@ -158,24 +136,16 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "UPDATE permission SET score=@Score WHERE idQuiz=@IdQuiz AND idUtilisateur = @IdUtilisateur";
+            cmd.CommandText = $"UPDATE permission SET score={permission.score} WHERE idQuiz={permission.idQuiz} AND idUtilisateur = {permission.idUtilisateur}";
             cmd.CommandType = CommandType.Text;
 
-            MySqlParameter idQuiz = new MySqlParameter("@IdQuiz", MySqlDbType.Int32);
-            MySqlParameter idUtilisateur = new MySqlParameter("@IdUtilisateur", MySqlDbType.Int32);
-            MySqlParameter score = new MySqlParameter("@Score", MySqlDbType.Int32);
-            
-
-            score.Value=permission.score;
-            cmd.Parameters.Add(score);
-            cmd.Parameters.Add(idQuiz);
-            cmd.Parameters.Add(idUtilisateur);
-
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+            return res;
         }
 
-        public static void DeletePermission(Permission permission)
+        public static bool DeletePermission(Permission permission)
         {
             DbConnection cnx = new MySqlConnection();
             cnx.ConnectionString = connexion;
@@ -184,19 +154,14 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = "DELETE FROM permission WHERE idQuiz=@IdQuiz AND idUtilisateur = @IdUtilisateur";
+            cmd.CommandText = $"DELETE FROM permission WHERE idQuiz={permission.idQuiz} AND idUtilisateur = {permission.idUtilisateur}";
             cmd.CommandType = CommandType.Text;
 
-            MySqlParameter idQuiz = new MySqlParameter("@IdQuiz", MySqlDbType.Int32);
-            MySqlParameter idUtilisateur = new MySqlParameter("@IdUtilisateur", MySqlDbType.Int32);
-
-            idQuiz.Value = permission.idQuiz;
-            idUtilisateur.Value = permission.idUtilisateur;
-            cmd.Parameters.Add(idQuiz);
-            cmd.Parameters.Add(idUtilisateur);
-
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+
+            return res;
         }
     }
 }

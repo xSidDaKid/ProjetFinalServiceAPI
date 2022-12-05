@@ -81,14 +81,14 @@ namespace QuizzerAPI
             PermissionDAO.AjouterPermission(permission);
         }
 
-        public void UpdatePermission(Permission permission)
+        public bool UpdatePermission(Permission permission)
         {
-            PermissionDAO.UpdatePermission(permission);
+            return PermissionDAO.UpdatePermission(permission);
         }
 
-        public void DeletePermission(Permission permission)
+        public bool DeletePermission(Permission permission)
         {
-            PermissionDAO.DeletePermission(permission);
+            return PermissionDAO.DeletePermission(permission);
         }
     }
 }
