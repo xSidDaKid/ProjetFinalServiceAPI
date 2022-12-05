@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permission` (
-  `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
+  `idQuiz` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `score` int(11) DEFAULT NULL,
+  `score` int(11) DEFAULT 0 ,
   PRIMARY KEY (`idQuiz`,`idUtilisateur`),
   KEY `FK_Utilisateur` (`idUtilisateur`),
   CONSTRAINT `FK_Quiz` FOREIGN KEY (`idQuiz`) REFERENCES `quiz` (`idQuiz`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -41,6 +41,7 @@ CREATE TABLE `permission` (
 
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
+INSERT INTO `permission` VALUES (1,2,100);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +53,7 @@ DROP TABLE IF EXISTS `quiz`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `quiz` (
-  `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
+  `idQuiz` int(11) NOT NULL,
   `titre` varchar(45) DEFAULT NULL,
   `question` varchar(45) DEFAULT NULL,
   `choix` varchar(45) DEFAULT NULL,
@@ -70,6 +71,7 @@ CREATE TABLE `quiz` (
 
 LOCK TABLES `quiz` WRITE;
 /*!40000 ALTER TABLE `quiz` DISABLE KEYS */;
+INSERT INTO `quiz` VALUES (1,'fruits','couleur','rouge','fraise',1),(2,'voir','ceci','bleu','celeri',2);
 /*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +83,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `utilisateur` (
-  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
+  `idUtilisateur` int(11) NOT NULL,
   `courriel` varchar(45) DEFAULT NULL,
   `nomUtilisateur` varchar(45) DEFAULT NULL,
   `motDePasse` varchar(45) DEFAULT NULL,
@@ -95,6 +97,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+INSERT INTO `utilisateur` VALUES (1,'asd','bob','root'),(2,'sss','marc','root');
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -107,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-02 14:18:50
+-- Dump completed on 2022-12-05 15:52:37
