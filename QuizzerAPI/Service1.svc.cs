@@ -90,5 +90,12 @@ namespace QuizzerAPI
         {
             return PermissionDAO.DeletePermission(permission);
         }
+
+    
+
+        public void AjouterQuizParam(string titre, string choix, string idUser, string reponses, string question)
+        {
+            QuizDAO.AjouterQuizParam( titre,  choix,  idUser,  reponses,  question);
+        }
     }
 }

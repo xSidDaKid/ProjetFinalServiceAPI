@@ -36,6 +36,14 @@ namespace QuizzerAPI
                 UriTemplate = "AddQuiz")]
         void AjouterQuiz(Quiz quiz);
 
+        //Insert
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "AddQuizParam/{titre}/{choix}/{idUser}/{reponses}/{question}")]
+        void AjouterQuizParam(string titre,string choix,string idUser, string reponses,string question);
+
         //Update
         [OperationContract]
         [WebInvoke(Method = "PUT",

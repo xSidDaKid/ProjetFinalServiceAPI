@@ -8,7 +8,7 @@ namespace QuizzerAPI.DAO
 {
     public static class QuizDAO
     {
-        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;password=admin;database=quizzer;";
 
         public static List<Quiz> GetAll()
         {
@@ -91,6 +91,27 @@ namespace QuizzerAPI.DAO
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
             cmd.CommandText = $"INSERT INTO quiz (idUser,titre,question,choix,reponses) VALUES ({quiz.idCreateurQuiz},'{quiz.titre}','{quiz.question}','{quiz.choix}','{quiz.reponses}');";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+        }
+
+        public static void AjouterQuizParam(string titre, string choix, string idUser, string reponses, string question)
+        {
+
+            reponses = reponses.Replace(";", ":");
+
+            DbConnection cnx = new MySqlConnection();
+
+            cnx.ConnectionString = connexion;
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = $"INSERT INTO quiz (idUser,titre,question,choix,reponses) VALUES ({idUser},'{titre}','{question}','{choix}','{reponses}');";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();

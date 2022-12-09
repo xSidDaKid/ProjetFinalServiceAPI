@@ -11,7 +11,7 @@ namespace QuizzerAPI.DAO
 {
     public class PermissionDAO
     {
-        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;password=admin;database=quizzer;";
 
         public static List<Permission> GetAll()
         {
