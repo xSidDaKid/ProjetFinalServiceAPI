@@ -42,7 +42,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "AddQuizParam/{titre}/{choix}/{idUser}/{reponses}/{question}")]
-        void AjouterQuizParam(string titre,string choix,string idUser, string reponses,string question);
+        void AjouterQuizParam(string titre, string choix, string idUser, string reponses, string question);
 
         //Update
         [OperationContract]
@@ -87,6 +87,13 @@ namespace QuizzerAPI
                 UriTemplate = "AddUtilisateur")]
         void AjouterUtilisateur(Utilisateur user);
 
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                 RequestFormat = WebMessageFormat.Json,
+                 ResponseFormat = WebMessageFormat.Json,
+                 UriTemplate = "AddUtilisateur/{courriel}/{nomUtilisateur}/{motDePasse}")]
+        void AjouterUtilisateur(string courriel, string nomUtilisateur, string motDePasse);
+
         //Update
         [OperationContract]
         [WebInvoke(Method = "PUT",
@@ -94,8 +101,15 @@ namespace QuizzerAPI
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdateUtilisateur")]
         bool UpdateUtilisateur(Utilisateur user);
+        
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "UpdateUtilisateur/{courriel}/{nomUtilisateur}/{motDePasse}/{idUtilisateur}")]
+        bool UpdateUtilisateur(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur);
 
-            //Delete
+        //Delete
         [OperationContract]
         [WebInvoke(Method = "DELETE",
                 RequestFormat = WebMessageFormat.Json,

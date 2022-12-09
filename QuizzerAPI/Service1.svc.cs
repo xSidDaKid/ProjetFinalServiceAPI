@@ -51,9 +51,19 @@ namespace QuizzerAPI
             UtilisateurDAO.AjouterUtilisateur(user);
         }
 
+        public void AjouterUtilisateur(string courriel, string nomUtilisateur, string motDePasse)
+        {
+            UtilisateurDAO.AjouterUtilisateur(courriel, nomUtilisateur, motDePasse);
+        }
+
         public bool UpdateUtilisateur(Utilisateur user)
         {
             return UtilisateurDAO.UpdateUtilisateur(user);
+        }
+
+        public bool UpdateUtilisateur(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur)
+        {
+            return UtilisateurDAO.UpdateUtilisateur(courriel, nomUtilisateur, motDePasse, idUtilisateur);
         }
 
         public bool DeleteUtilisateur(string id)
@@ -91,11 +101,11 @@ namespace QuizzerAPI
             return PermissionDAO.DeletePermission(permission);
         }
 
-    
+
 
         public void AjouterQuizParam(string titre, string choix, string idUser, string reponses, string question)
         {
-            QuizDAO.AjouterQuizParam( titre,  choix,  idUser,  reponses,  question);
+            QuizDAO.AjouterQuizParam(titre, choix, idUser, reponses, question);
         }
     }
 }

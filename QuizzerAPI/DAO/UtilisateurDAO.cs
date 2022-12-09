@@ -95,6 +95,24 @@ namespace QuizzerAPI.DAO
             cnx.Close();
         }
 
+        public static void AjouterUtilisateur(string courriel, string nomUtilisateur, string motDePasse)
+        {
+
+            DbConnection cnx = new MySqlConnection();
+
+            cnx.ConnectionString = connexion;
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = $"INSERT INTO utilisateur (idUtilisateur,courriel,nomUtilisateur,motDePasse) VALUES ('{courriel}','{nomUtilisateur}','{motDePasse}');";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+        }
 
         public static bool UpdateUtilisateur(Utilisateur user)
         {
@@ -106,6 +124,25 @@ namespace QuizzerAPI.DAO
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
             cmd.CommandText = $"UPDATE utilisateur SET courriel='{user.courriel}',nomUtilisateur='{user.nomUtilisateur}', motDePasse='{user.motDePasse}' WHERE idUtilisateur = {user.idUtilisateur}";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Prepare();
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+            return res;
+        }
+        
+        public static bool UpdateUtilisateur(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur)
+        {
+            int id = int.Parse(idUtilisateur);  
+            DbConnection cnx = new MySqlConnection();
+            cnx.ConnectionString = connexion;
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = $"UPDATE utilisateur SET courriel='{courriel}',nomUtilisateur='{nomUtilisateur}', motDePasse='{motDePasse}' WHERE idUtilisateur = {id}";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();
