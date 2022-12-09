@@ -51,7 +51,7 @@ namespace QuizzerAPI
             UtilisateurDAO.AjouterUtilisateur(user);
         }
 
-        public void AjouterUtilisateur(string courriel, string nomUtilisateur, string motDePasse)
+        public void AjouterUtilisateurParam(string courriel, string nomUtilisateur, string motDePasse)
         {
             UtilisateurDAO.AjouterUtilisateur(courriel, nomUtilisateur, motDePasse);
         }
@@ -61,7 +61,7 @@ namespace QuizzerAPI
             return UtilisateurDAO.UpdateUtilisateur(user);
         }
 
-        public bool UpdateUtilisateur(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur)
+        public bool UpdateUtilisateurParam(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur)
         {
             return UtilisateurDAO.UpdateUtilisateur(courriel, nomUtilisateur, motDePasse, idUtilisateur);
         }

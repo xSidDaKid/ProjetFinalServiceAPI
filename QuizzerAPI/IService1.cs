@@ -92,7 +92,7 @@ namespace QuizzerAPI
                  RequestFormat = WebMessageFormat.Json,
                  ResponseFormat = WebMessageFormat.Json,
                  UriTemplate = "AddUtilisateur/{courriel}/{nomUtilisateur}/{motDePasse}")]
-        void AjouterUtilisateur(string courriel, string nomUtilisateur, string motDePasse);
+        void AjouterUtilisateurParam(string courriel, string nomUtilisateur, string motDePasse);
 
         //Update
         [OperationContract]
@@ -107,7 +107,7 @@ namespace QuizzerAPI
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdateUtilisateur/{courriel}/{nomUtilisateur}/{motDePasse}/{idUtilisateur}")]
-        bool UpdateUtilisateur(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur);
+        bool UpdateUtilisateurParam(string courriel, string nomUtilisateur, string motDePasse, string idUtilisateur);
 
         //Delete
         [OperationContract]
