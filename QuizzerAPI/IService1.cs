@@ -151,6 +151,13 @@ namespace QuizzerAPI
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "AddPermission")]
         void AjouterPermission(Permission permission);
+        
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "AddPermission/{idQuiz}/{idUtilisateur}/{score}")]
+        void AjouterPermissionParam(string idQuiz, string idUtilisateur, string score);
 
         //Update
         [OperationContract]

@@ -11,7 +11,7 @@ namespace QuizzerAPI.DAO
 {
     public class PermissionDAO
     {
-        private static string connexion = "server=localhost;port=3306;user=root;password=admin;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
 
         public static List<Permission> GetAll()
         {
@@ -120,6 +120,28 @@ namespace QuizzerAPI.DAO
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
             cmd.CommandText = $"INSERT INTO permission (idQuiz,idUtilisateur,score) VALUES ({permission.idQuiz},{permission.idUtilisateur},{permission.score});";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+        }
+
+        public static void AjouterPermissionParam(string idQuiz, string idUtilisateur, string score)
+        {
+            int idQuizINT = int.Parse(idQuiz);
+            int idUtilisateurINT = int.Parse(idUtilisateur);
+            int scoreINT = int.Parse(score);
+
+            DbConnection cnx = new MySqlConnection();
+
+            cnx.ConnectionString = connexion;
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = $"INSERT INTO permission (idQuiz,idUtilisateur,score) VALUES ({idQuizINT},{idUtilisateurINT},{scoreINT});";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();

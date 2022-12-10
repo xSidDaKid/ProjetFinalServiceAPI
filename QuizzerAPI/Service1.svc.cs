@@ -90,6 +90,11 @@ namespace QuizzerAPI
         {
             PermissionDAO.AjouterPermission(permission);
         }
+        
+        public void AjouterPermissionParam(string idQuiz, string idUtilisateur, string score)
+        {
+            PermissionDAO.AjouterPermissionParam(idQuiz, idUtilisateur, score);
+        } 
 
         public bool UpdatePermission(Permission permission)
         {
