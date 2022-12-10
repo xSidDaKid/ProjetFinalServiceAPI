@@ -11,7 +11,7 @@ namespace QuizzerAPI.DAO
 {
     public class UtilisateurDAO
     {
-        private static string connexion = "server=localhost;port=3306;user=root;password=admin;database=quizzer;";
+        private static string connexion = "server=localhost;port=3306;user=root;database=quizzer;";
 
         public static List<Utilisateur> GetAll()
         {
@@ -106,7 +106,7 @@ namespace QuizzerAPI.DAO
 
             DbCommand cmd = new MySqlCommand();
             cmd.Connection = cnx;
-            cmd.CommandText = $"INSERT INTO utilisateur (idUtilisateur,courriel,nomUtilisateur,motDePasse) VALUES ('{courriel}','{nomUtilisateur}','{motDePasse}');";
+            cmd.CommandText = $"INSERT INTO utilisateur (courriel,nomUtilisateur,motDePasse) VALUES ('{courriel}','{nomUtilisateur}','{motDePasse}');";
             cmd.CommandType = CommandType.Text;
 
             cmd.Prepare();
