@@ -166,6 +166,28 @@ namespace QuizzerAPI.DAO
             cnx.Close();
             return res;
         }
+        
+        public static bool UpdatePermissionParam(string score, string idQuiz, string idUtilisateur)
+        {
+            int idQuizINT = int.Parse(idQuiz);
+            int idUtilisateurINT = int.Parse(idUtilisateur);
+            int scoreINT = int.Parse(score);
+
+            DbConnection cnx = new MySqlConnection();
+            cnx.ConnectionString = connexion;
+
+            cnx.Open();
+
+            DbCommand cmd = new MySqlCommand();
+            cmd.Connection = cnx;
+            cmd.CommandText = $"UPDATE permission SET score={scoreINT} WHERE idQuiz={idQuizINT} AND idUtilisateur = {idUtilisateurINT}";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Prepare();
+            bool res = cmd.ExecuteNonQuery() > 0;
+            cnx.Close();
+            return res;
+        }
 
         public static bool DeletePermission(Permission permission)
         {

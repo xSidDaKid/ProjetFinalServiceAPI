@@ -21,6 +21,7 @@ namespace QuizzerAPI
         {
             return QuizDAO.GetByID(id);
         }
+
         public void AjouterQuiz(Quiz quiz)
         {
             QuizDAO.AjouterQuiz(quiz);
@@ -90,23 +91,26 @@ namespace QuizzerAPI
         {
             PermissionDAO.AjouterPermission(permission);
         }
-        
+
         public void AjouterPermissionParam(string idQuiz, string idUtilisateur, string score)
         {
             PermissionDAO.AjouterPermissionParam(idQuiz, idUtilisateur, score);
-        } 
+        }
 
         public bool UpdatePermission(Permission permission)
         {
             return PermissionDAO.UpdatePermission(permission);
         }
 
+        public bool UpdatePermissionParam(string score, string idQuiz, string idUtilisateur)
+        {
+            return PermissionDAO.UpdatePermissionParam(score, idQuiz, idUtilisateur);
+        }
+
         public bool DeletePermission(Permission permission)
         {
             return PermissionDAO.DeletePermission(permission);
         }
-
-
 
         public void AjouterQuizParam(string titre, string choix, string idUser, string reponses, string question)
         {

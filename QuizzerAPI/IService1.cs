@@ -166,6 +166,13 @@ namespace QuizzerAPI
                 ResponseFormat = WebMessageFormat.Json,
                 UriTemplate = "UpdatePermission")]
         bool UpdatePermission(Permission permission);
+        
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "UpdatePermission/{score}/{idQuiz}/{idUtilisateur}")]
+        bool UpdatePermissionParam(string score, string idQuiz, string idUtilisateur);
 
         //Delete
         [OperationContract]
